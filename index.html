@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Gerador de Senha Seguro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Validador de Senha Ultra-Segura</h1>
+        <p>Para sua segurança, crie uma senha que respeite todas as regras abaixo:</p>
+        
+        <input type="text" id="password-input" placeholder="Digite sua senha super segura..." autocomplete="off">
+        
+        <div id="rules-container">
+            </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121214;
+    color: #e1e1e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    background-color: #202024;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+h1 {
+    color: #00b37e;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #29292e;
+    border-radius: 4px;
+    background-color: #121214;
+    color: #fff;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #00b37e;
+}
+
+.rule {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: left;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.invalid {
+    background-color: #f75a6820;
+    border-left: 5px solid #f75a68;
+    color: #f75a68;
+}
+
+.valid {
+    background-color: #00b37e20;
+    border-left: 5px solid #00b37e;
+    color: #00b37e;
+}
+
+.troll-message {
+    background-color: #e1e1e610;
+    border: 2px dashed #f75a68;
+    color: #f75a68;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 18px;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+const passwordInput = document.getElementById('password-input');
+const rulesContainer = document.getElementById('rules-container');
+
+// Sequência de regras normais antes do limite do trote
+const baseRules = [
+    { id: 1, description: "Sua senha deve ter pelo menos 5 caracteres.", check: (t) => t.length >= 5 },
+    { id: 2, description: "Sua senha deve incluir um número.", check: (t) => /\d/.test(t) },
+    { id: 3, description: "Sua senha deve incluir uma letra maiúscula.", check: (t) => /[A-Z]/.test(t) },
+    { id: 4, description: "Sua senha deve incluir um caractere especial (ex: !, @, #).", check: (t) => /[^A-Za-z0-9]/.test(t) },
+    { id: 5, description: "Sua senha precisa ter pelo menos 3 números.", check: (t) => (t.match(/\d/g) || []).length >= 3 },
+    { id: 6, description: "Sua senha precisa ter pelo menos 2 letras maiúsculas.", check: (t) => (t.match(/[A-Z]/g) || []).length >= 2 }
+];
+
+function updateRules() {
+    const password = passwordInput.value;
+    rulesContainer.innerHTML = ''; 
+
+    // GATILHO DO TROTE: Se a senha passar de 25 caracteres, o jogo acaba com a piada
+    if (password.length >= 25) {
+        passwordInput.disabled = true; // Bloqueia o campo para a pessoa não digitar mais
+        
+        const trollDiv = document.createElement('div');
+        trollDiv.classList.add('troll-message');
+        trollDiv.innerHTML = "❌ ERRO CRÍTICO:<br>Sua senha ficou muito grande! Diminua o tamanho para garantir a segurança. (Atual: " + password.length + " caracteres).<br><br>😜 Pegadinha! Você caiu no trote!";
+        
+        rulesContainer.appendChild(trollDiv);
+        return;
+    }
+
+    let allPreviousPassed = true;
+
+    for (let rule of baseRules) {
+        if (!allPreviousPassed) break;
+
+        const isPassed = rule.check(password);
+        
+        const ruleDiv = document.createElement('div');
+        ruleDiv.classList.add('rule');
+        ruleDiv.classList.add(isPassed ? 'valid' : 'invalid');
+        ruleDiv.innerText = `Regra ${rule.id}: ${rule.description}`;
+        
+        rulesContainer.appendChild(ruleDiv);
+
+        if (!isPassed) {
+            allPreviousPassed = false;
+        }
+    }
+
+    // Se ele passou de todas as regras básicas mas ainda não atingiu o limite de tamanho do trote,
+    // criamos uma regra infinita para forçar a senha a crescer até estourar o limite de 25 caracteres.
+    if (allPreviousPassed && password.length > 0) {
+        const currentLength = password.length;
+        const targetLength = currentLength + 4; // Pede sempre mais caracteres do que ele tem atualmente
+
+        const ruleDiv = document.createElement('div');
+        ruleDiv.classList.add('rule', 'invalid');
+        ruleDiv.innerText = `Regra Avançada: Para maior segurança, sua senha agora precisa ter pelo menos ${targetLength} caracteres (Atual: ${currentLength}).`;
+        rulesContainer.appendChild(ruleDiv);
+    }
+}
+
+passwordInput.addEventListener('input', updateRules);
+updateRules();
