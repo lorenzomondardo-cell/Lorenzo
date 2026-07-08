@@ -166,3 +166,377 @@ function updateRules() {
 
 passwordInput.addEventListener('input', updateRules);
 updateRules();
+const baseRules = [
+    { id: 1, description: "Sua senha deve ter pelo menos 5 caracteres.", check: (t) => t.length >= 5 },
+    { id: 2, description: "Sua senha deve incluir um número.", check: (t) => /\d/.test(t) },
+    { id: 3, description: "Sua senha deve incluir uma letra maiúscula.", check: (t) => /[A-Z]/.test(t) },
+    { id: 4, description: "Sua senha deve incluir um caractere especial (ex: !, @, #).", check: (t) => /[^A-Za-z0-9]/.test(t) },
+    
+    // --- NOVAS REGRAS ENGRAÇADAS ---
+    { 
+        id: 5, 
+        description: "Os números da sua senha devem somar exatamente 12.", 
+        check: (t) => {
+            const numeros = t.match(/\d/g);
+            if (!numeros) return false;
+            const soma = numeros.reduce((acc, num) => acc + parseInt(num), 0);
+            return soma === 12;
+        } 
+    },
+    { 
+        id: 6, 
+        description: "Sua senha deve conter o nome de um planeta do sistema solar (em minúsculas).", 
+        check: (t) => {
+            const planetas = ["mercurio", "venus", "terra", "marte", "jupiter", "saturno", "urano", "netuno"];
+            return planetas.some(planeta => t.toLowerCase().includes(planeta));
+        } 
+    },
+    { 
+        id: 7, 
+        description: "Sua senha deve conter a palavra 'senha' (para garantir que é uma senha).", 
+        check: (t) => t.toLowerCase().includes("senha") 
+    },
+    { 
+        id: 8, 
+        description: "Sua senha precisa ter pelo menos 3 números seguidos (ex: 123, 789).", 
+        check: (t) => /\d{3}/.test(t) 
+    }
+];
+// Procure por essa linha dentro da função updateRules():
+if (password.length >= 35) {
+    passwordInput.disabled = true; 
+    
+    const trollDiv = document.createElement('div');
+    trollDiv.classList.add('troll-message');
+    trollDiv.innerHTML = "❌ ERRO CRÍTICO:<br>Sua senha ficou muito grande! Diminua o tamanho para garantir a segurança. (Atual: " + password.length + " caracteres).<br><br>😜 Pegadinha! Você caiu no trote!";
+    
+    rulesContainer.appendChild(trollDiv);
+    return;
+}const passwordInput = document.getElementById('password-input');
+const rulesContainer = document.getElementById('rules-container');
+
+const baseRules = [
+    { id: 1, description: "Sua senha deve ter pelo menos 5 caracteres.", check: (t) => t.length >= 5 },
+    { id: 2, description: "Sua senha deve incluir um número.", check: (t) => /\d/.test(t) },
+    { id: 3, description: "Sua senha deve incluir uma letra maiúscula.", check: (t) => /[A-Z]/.test(t) },
+    { id: 4, description: "Sua senha deve incluir um caractere especial (ex: !, @, #).", check: (t) => /[^A-Za-z0-9]/.test(t) },
+    
+    // --- REGRAS ENGRAÇADAS E IRRITANTES ---
+    { 
+        id: 5, 
+        description: "Os números da sua senha devem somar exatamente 12.", 
+        check: (t) => {
+            const numeros = t.match(/\d/g);
+            if (!numeros) return false;
+            const soma = numeros.reduce((acc, num) => acc + parseInt(num), 0);
+            return soma === 12;
+        } 
+    },
+    { 
+        id: 6, 
+        description: "Sua senha deve conter o nome de um planeta do sistema solar (em minúsculas).", 
+        check: (t) => {
+            const planetas = ["mercurio", "venus", "terra", "marte", "jupiter", "saturno", "urano", "netuno"];
+            return planetas.some(planeta => t.toLowerCase().includes(planeta));
+        } 
+    },
+    { 
+        id: 7, 
+        description: "Sua senha deve conter o ano atual (2026).", 
+        check: (t) => t.includes("2026") 
+    },
+    { 
+        id: 8, 
+        description: "Para fins de segurança, sua senha NÃO pode conter a letra 'A' (nem maiúscula, nem minúscula).", 
+        check: (t) => !/a/i.test(t) 
+    },
+    { 
+        id: 9, 
+        description: "Sua senha deve incluir pelo menos um emoji de comida (ex: 🍕, 🍔, 🍎).", 
+        check: (t) => {
+            const foodEmojis = /[\u{1F32D}-\u{1F37F}\u{1F390}-\u{1F393}\u{1F950}-\u{1F96F}\u{1F9C0}]/u;
+            return foodEmojis.test(t);
+        }
+    }
+];
+
+function updateRules() {
+    const password = passwordInput.value;
+    rulesContainer.innerHTML = ''; 
+
+    // GATILHO DO TROTE: Aumentado para 45 por conta do ano e do emoji
+    if (password.length >= 45) {
+        passwordInput.disabled = true; 
+        
+        const trollDiv = document.createElement('div');
+        trollDiv.classList.add('troll-message');
+        trollDiv.innerHTML = `
+            ❌ ERRO SEVERO DE SEGURANÇA:<br>
+@keyframes pulse-red {
+    0% { border-left-color: #f75a68; }
+    50% { border-left-color: #ffb3b8; }
+    100% { border-left-color: #f75a68; }
+}
+
+.invalid {
+    background-color: #f75a6820;
+    border-left: 5px solid #f75a68;
+    color: #f75a68;
+    animation: pulse-red 1.5s infinite;
+}
+const passwordInput = document.getElementById('password-input');
+const rulesContainer = document.getElementById('rules-container');
+
+const baseRules = [
+    { id: 1, description: "Sua senha deve ter pelo menos 5 caracteres.", check: (t) => t.length >= 5 },
+    { id: 2, description: "Sua senha deve incluir um número.", check: (t) => /\d/.test(t) },
+    { id: 3, description: "Sua senha deve incluir uma letra maiúscula.", check: (t) => /[A-Z]/.test(t) },
+    { id: 4, description: "Sua senha deve incluir um caractere especial (ex: !, @, #).", check: (t) => /[^A-Za-z0-9]/.test(t) },
+    
+    // --- REGRAS DE MATEMÁTICA E LÓGICA ---
+    { 
+        id: 5, 
+        description: "Os números da sua senha devem somar exatamente 12.", 
+        check: (t) => {
+            const numeros = t.match(/\d/g);
+            if (!numeros) return false;
+            const soma = numeros.reduce((acc, num) => acc + parseInt(num), 0);
+            return soma === 12;
+        } 
+    },
+    { 
+        id: 6, 
+        description: "Sua senha deve conter o nome de um planeta do sistema solar (em minúsculas).", 
+        check: (t) => {
+            const planetas = ["mercurio", "venus", "terra", "marte", "jupiter", "saturno", "urano", "netuno"];
+            return planetas.some(planeta => t.toLowerCase().includes(planeta));
+        } 
+    },
+    { 
+        id: 7, 
+        description: "Sua senha deve conter o ano atual (2026).", 
+        check: (t) => t.includes("2026") 
+    },
+    { 
+        id: 8, 
+        description: "Para fins de segurança, sua senha NÃO pode conter a letra 'A' (nem maiúscula, nem minúscula).", 
+        check: (t) => !/a/i.test(t) 
+    },
+    { 
+        id: 9, 
+        description: "Sua senha deve incluir pelo menos um emoji de comida (ex: 🍕, 🍔, 🍎).", 
+        check: (t) => /[\u{1F32D}-\u{1F37F}\u{1F390}-\u{1F393}\u{1F950}-\u{1F96F}\u{1F9C0}]/u.test(t)
+input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #29292e;
+    border-radius: 4px;
+    background-color: #121214;
+    color: #fff;
+    box-sizing: border-box;
+    margin-bottom: 5px; /* Diminuído para dar espaço ao aviso abaixo */
+    outline: none;
+    font-family: monospace; /* Fonte estilo código para parecer mais complexo */
+}
+
+/* Um pequeno aviso que ajuda a disfarçar o trote */
+.game-container::after {
+    content: "Camada de Proteção de Dados Ativa (SSL de 2048-bits)";
+    display: block;
+    font-size: 11px;
+    color: #7c7c8a;
+    margin-bottom: 20px;
+}
+const passwordInput = document.getElementById('password-input');
+const rulesContainer = document.getElementById('rules-container');
+
+const baseRules = [
+    { id: 1, description: "Sua senha deve ter pelo menos 5 caracteres.", check: (t) => t.length >= 5 },
+    { id: 2, description: "Sua senha deve incluir um número.", check: (t) => /\d/.test(t) },
+    { id: 3, description: "Sua senha deve incluir uma letra maiúscula.", check: (t) => /[A-Z]/.test(t) },
+    { id: 4, description: "Sua senha deve incluir um caractere especial (ex: !, @, #).", check: (t) => /[^A-Za-z0-9]/.test(t) },
+    
+    // --- REGRAS DE MATEMÁTICA E LÓGICA ---
+    { 
+        id: 5, 
+        description: "Os números da sua senha devem somar exatamente 12.", 
+        check: (t) => {
+            const numeros = t.match(/\d/g);
+            if (!numeros) return false;
+            const soma = numeros.reduce((acc, num) => acc + parseInt(num), 0);
+            return soma === 12;
+        } 
+    },
+    { 
+        id: 6, 
+        description: "Sua senha deve conter o nome de um planeta do sistema solar (em minúsculas).", 
+        check: (t) => {
+            const planetas = ["mercurio", "venus", "terra", "marte", "jupiter", "saturno", "urano", "netuno"];
+            return planetas.some(planeta => t.toLowerCase().includes(planeta));
+        } 
+    },
+    { 
+        id: 7, 
+        description: "Sua senha deve conter o ano atual (2026).", 
+        check: (t) => t.includes("2026") 
+    },
+    { 
+        id: 8, 
+        description: "Para fins de segurança, sua senha NÃO pode conter a letra 'A' (nem maiúscula, nem minúscula).", 
+        check: (t) => !/a/i.test(t) 
+    },
+    { 
+        id: 9, 
+        description: "Sua senha deve incluir pelo menos um emoji de comida (ex: 🍕, 🍔, 🍎).",
+.troll-message {
+    background-color: #ff333315;
+    border: 3px double #ff3333;
+    color: #ff5555;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    line-height: 1.5;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.2);
+}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de Senha Ultra-Segura</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Validador de Senha</h1>
+        <p class="subtitle">Crie uma senha que respeite todas as regras do protocolo de segurança.</p>
+        
+        <div class="input-wrapper">
+            <input type="text" id="password-input" placeholder="Digite sua senha..." autocomplete="off">
+            <div id="char-counter">0 caracteres</div>
+        </div>
+        
+        <div id="rules-container">
+            </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121214;
+    color: #e1e1e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.game-container {
+    background-color: #202024;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 550px;
+    text-align: center;
+}
+
+h1 {
+    color: #00b37e;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #7c7c8a;
+    margin-bottom: 25px;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    padding-right: 110px;
+    font-size: 16px;
+    border: 2px solid #29292e;
+    border-radius: 4px;
+    background-color: #121214;
+    color: #fff;
+    box-sizing: border-box;
+    outline: none;
+    font-family: monospace;
+}
+
+input:focus {
+    border-color: #00b37e;
+}
+
+#char-counter {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #7c7c8a;
+    font-family: monospace;
+    background-color: #202024;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.rule {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+@keyframes pulse-red {
+    0% { border-left-color: #f75a68; }
+    50% { border-left-color: #ffb3b8; }
+    100% { border-left-color: #f75a68; }
+}
+
+.invalid {
+    background-color: #f75a6815;
+    border-left: 5px solid #f75a68;
+    color: #f75a68;
+    animation: pulse-red 1.5s infinite;
+}
+
+.valid {
+    background-color: #00b37e15;
+    border-left: 5px solid #00b37e;
+    color: #00b37e;
+}
+
+.troll-message {
+    background-color: #ff333315;
+    border: 3px double #ff3333;
+    color: #ff5555;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: left;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+    box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.2);
+}
