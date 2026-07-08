@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Quiz do GitHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div id="quiz-header">
+            <h2 id="pergunta">Carregando pergunta...</h2>
+        </div>
+        <div id="opcoes-respostas">
+            </div>
+        <button id="btn-proximo" class="escondido">Próxima Pergunta</button>
+        <div id="resultado" class="escondido"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.quiz-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-width: 95%;
+    padding: 30px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.btn-resposta {
+    background-color: #eef2f3;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    padding: 12px;
+    margin: 10px 0;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-resposta:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+#btn-proximo {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#btn-proximo:hover {
+    background-color: #218838;
+}
+
+.escondido {
+    display: none;
+}
+
+#resultado {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+}
+// Perguntas personalizadas sobre o universo da Marvel
+const perguntasQuiz = [
+    {
+        pergunta: "Qual é o primeiro filme oficial do Universo Cinematográfico da Marvel (MCU)?",
+        opcoes: ["Capitão América: O Primeiro Vingador", "Homem de Ferro", "Thor", "O Incrível Hulk"],
+        correta: 1
+    },
+    {
+        pergunta: "De qual metal fictício é feito o escudo do Capitão América e o traje do Pantera Negra?",
+        opcoes: ["Adamantium", "Kryptonita", "Vibranium", "Mithril"],
+        correta: 2
+    },
+    {
+        pergunta: "Quantas Joias do Infinito existem no universo da Marvel?",
+        opcoes: ["5", "6", "7", "4"],
+        correta: 1
+    },
+    {
+        pergunta: "Qual é o nome verdadeiro do herói conhecido como Gavião Arqueiro?",
+        opcoes: ["Clint Barton", "Phil Coulson", "Bruce Banner", "Sam Wilson"],
+        correta: 0
+    },
+    {
+        pergunta: "Em qual planeta Thanos encontra a Joia da Alma em 'Vingadores: Guerra Infinita'?",
+        opcoes: ["Asgard", "Xandar", "Vormir", "Titan"],
+        correta: 2
+    }
+];
+
+let perguntaAtual = 0;
+let pontuacao = 0;
+
+const elementoPergunta = document.getElementById('pergunta');
+const containerRespostas = document.getElementById('opcoes-respostas');
+const btnProximo = document.getElementById('btn-proximo');
+const elementoResultado = document.getElementById('resultado');
+
+function iniciarQuiz() {
+    perguntaAtual = 0;
+    pontuacao = 0;
+    btnProximo.innerText = "Próxima Pergunta";
+    btnProximo.onclick = avançarPergunta; // Garante o clique correto ao reiniciar
+    mostrarPergunta();
+}
+
+function mostrarPergunta() {
+    resetarEstado();
+    let questao = perguntasQuiz[perguntaAtual];
+    elementoPergunta.innerText = questao.pergunta;
+
+    questao.opcoes.forEach((opcao, indice) => {
+        const botao = document.createElement('button');
+        botao.innerText = opcao;
+        botao.classList.add('btn-resposta');
+        botao.addEventListener('click', () => selecionarResposta(indice));
+        containerRespostas.appendChild(botao);
+    });
+}
+
+function resetarEstado() {
+    btnProximo.classList.add('escondido');
+    while (containerRespostas.firstChild) {
+        containerRespostas.removeChild(containerRespostas.firstChild);
+    }
+}
+
+function selecionarResposta(indiceSelecionado) {
+    let questao = perguntasQuiz[perguntaAtual];
+    
+    const botoes = containerRespostas.querySelectorAll('.btn-resposta');
+    botoes.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === questao.correta) {
+            btn.style.backgroundColor = '#28a745'; 
+            btn.style.color = 'white';
+        } else if (idx === indiceSelecionado) {
+            btn.style.backgroundColor = '#dc3545'; 
+            btn.style.color = 'white';
+        }
+    });
+
+    if (indiceSelecionado === questao.correta) {
+        pontuacao++;
+    }
+
+    btnProximo.classList.remove('escondido');
+}
+
+function avançarPergunta() {
+    perguntaAtual++;
+    if (perguntaAtual < perguntasQuiz.length) {
+        mostrarPergunta();
+    } else {
+        mostrarResultado();
+    }
+}
+
+btnProximo.addEventListener('click', avançarPergunta);
+
+function mostrarResultado() {
+    resetarEstado();
+    elementoPergunta.innerText = "Quiz Concluído!";
+    elementoResultado.innerText = `Você acertou ${pontuacao} de ${perguntasQuiz.length} perguntas sobre a Marvel!`;
+    elementoResultado.classList.remove('escondido');
+    btnProximo.innerText = "Reiniciar Quiz";
+    btnProximo.classList.remove('escondido');
+    btnProximo.onclick = () => {
+        elementoResultado.classList.add('escondido');
+        iniciarQuiz();
+    };
+}
+
+// Inicializa o jogo ao carregar a página
+iniciarQuiz();
+{
+        pergunta: "Quem é o diretor da S.H.I.E.L.D. que reúne os Vingadores pela primeira vez?",
+        opcoes: ["Nick Fury", "Phil Coulson", "Tony Stark", "Alexander Pierce"],
+        correta: 0
+    },
+    {
+        pergunta: "Qual é o nome da inteligência artificial criada por Tony Stark que depois ganha um corpo físico?",
+        opcoes: ["J.A.R.V.I.S.", "F.R.I.D.A.Y.", "Ultron", "Visão"],
+        correta: 2
+    },
+    {
+        pergunta: "Em 'Thor: Ragnarok', qual inteligência ou ser controla o planeta Sakaar?",
+        opcoes: ["Loki", "O Grão-Mestre", "Hela", "O Colecionador"],
+        correta: 1
+    },
+    {
+        pergunta: "Qual é a música marcante que toca na abertura de 'Guardiões da Galáxia Vol. 1' enquanto Peter Quill dança?",
+        opcoes: ["Come and Get Your Love", "Hooked on a Feeling", "Mr. Blue Sky", "Cherry Bomb"],
+        correta: 1
+    },
+    {
+        pergunta: "Quem é o verdadeiro vilão por trás dos acontecimentos da série 'WandaVision'?",
+        opcoes: ["Agatha Harkness", "Mephisto", "Tyler Hayward", "Monica Rambeau"],
+        correta: 0
+    },
+    {
+        pergunta: "Qual Peter Parker é conhecido como 'Peter-Dois' no filme 'Homem-Aranha: Sem Volta Para Casa'?",
+        opcoes: ["Tom Holland", "Andrew Garfield", "Tobey Maguire", "Miles Morales"],
+        correta: 2
+    }
+    {
+        pergunta: "Antes de se tornar o Doutor Estranho, qual era a profissão de Stephen Strange?",
+        opcoes: ["Cientista Político", "Neurocirurgião", "Engenheiro Aeroespacial", "Físico Quântico"],
+        correta: 1
+    },
+    {
+        pergunta: "Qual é o nome da dimensão para onde o Homem-Formiga vai quando encolhe além do nível subatômico?",
+        opcoes: ["Reino Quântico", "Zona Negativa", "Dimensão Espelhada", "Microverso"],
+        correta: 0
+    },
+    {
+        pergunta: "Qual personagem se sacrifica para que os Vingadores consigam a Joia da Alma em 'Vingadores: Ultimato'?",
+        opcoes: ["Gamora", "Nebulosa", "Viúva Negra (Natasha)", "Homem de Ferro"],
+        correta: 2
+    },
+    {
+        pergunta: "Quem é o irmão adotivo de Thor e o Deus da Trapaça?",
+        opcoes: ["Odin", "Loki", "Heimdall", "Malekith"],
+        correta: 1
+    },
+    {
+        pergunta: "Em 'Pantera Negra', qual é o nome do principal rival e primo de T'Challa que tenta assumir o trono?",
+        opcoes: ["M'Baku", "Erik Killmonger", "W'Kabi", "Zemo"],
+        correta: 1
+    }
+    function mostrarResultado() {
+    resetarEstado();
+    elementoPergunta.innerText = "Quiz Concluído!";
+    
+    // Calcula a porcentagem de acertos
+    const porcentagemAcertos = (pontuacao / perguntasQuiz.length) * 100;
+    let mensagemFinal = "";
+
+    // Condições para as mensagens personalizadas
+    if (pontuacao === 0) {
+        mensagemFinal = "Você errou todas as perguntas, você não é um verdadeiro fã do universo marvel.";
+    } else if (porcentagemAcertos === 50) {
+        mensagemFinal = "Opa, parece que temos um fã mediano do universo marvel, meus parabéns por acertar 50% das perguntas.";
+    } else if (pontuacao === perguntasQuiz.length) {
+        mensagemFinal = "Meus parabéns, parece que temos um fã verdadeiro do universo marvel.";
+    } else {
+        // Mensagem padrão caso o acerto seja diferente de 0%, 50% ou 100%
+        mensagemFinal = `Você acertou ${pontuacao} de ${perguntasQuiz.length} perguntas!`;
+    }
+
+    elementoResultado.innerText = mensagemFinal;
+    elementoResultado.classList.remove('escondido');
+    
+    btnProximo.innerText = "Reiniciar Quiz";
+    btnProximo.classList.remove('escondido');
+    btnProximo.onclick = () => {
+        elementoResultado.classList.add('escondido');
+        iniciarQuiz();
+    };
+}function mostrarResultado() {
+    resetarEstado();
+    elementoPergunta.innerText = "Quiz Concluído!";
+    
+    // Calcula a porcentagem de acertos
+    const porcentagemAcertos = (pontuacao / perguntasQuiz.length) * 100;
+    let mensagemFinal = "";
+
+    // Condições para as mensagens personalizadas
+    if (pontuacao === 0) {
+        mensagemFinal = "Você errou todas as perguntas, você não é um verdadeiro fã do universo marvel.";
+    } else if (porcentagemAcertos === 50) {
+        mensagemFinal = "Opa, parece que temos um fã mediano do universo marvel, meus parabéns por acertar 50% das perguntas.";
+    } else if (pontuacao === perguntasQuiz.length) {
+        mensagemFinal = "Meus parabéns, parece que temos um fã verdadeiro do universo marvel.";
+    } else {
+        // Mensagem padrão caso o acerto seja diferente de 0%, 50% ou 100%
+        mensagemFinal = `Você acertou ${pontuacao} de ${perguntasQuiz.length} perguntas!`;
+    }
+
+    elementoResultado.innerText = mensagemFinal;
+    elementoResultado.classList.remove('escondido');
+    
+    btnProximo.innerText = "Reiniciar Quiz";
+    btnProximo.classList.remove('escondido');
+    btnProximo.onclick = () => {
+        elementoResultado.classList.add('escondido');
+        iniciarQuiz();
+    };
+}
