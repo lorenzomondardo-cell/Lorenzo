@@ -88,39 +88,112 @@ h2 {
     color: #333;
     margin-top: 20px;
 }
-// Perguntas personalizadas sobre o universo da Marvel
+// Array completo com as 16 perguntas sobre a Marvel e seus respectivos links de imagens
 const perguntasQuiz = [
     {
         pergunta: "Qual é o primeiro filme oficial do Universo Cinematográfico da Marvel (MCU)?",
         opcoes: ["Capitão América: O Primeiro Vingador", "Homem de Ferro", "Thor", "O Incrível Hulk"],
-        correta: 1
+        correta: 1,
+        imagem: "https://images.unsplash.com/photo-1608889174636-8db851145f22?w=500&q=80"
     },
     {
         pergunta: "De qual metal fictício é feito o escudo do Capitão América e o traje do Pantera Negra?",
         opcoes: ["Adamantium", "Kryptonita", "Vibranium", "Mithril"],
-        correta: 2
+        correta: 2,
+        imagem: "https://images.unsplash.com/photo-1620336655055-088d06e36bf0?w=500&q=80"
     },
     {
         pergunta: "Quantas Joias do Infinito existem no universo da Marvel?",
         opcoes: ["5", "6", "7", "4"],
-        correta: 1
+        correta: 1,
+        imagem: "https://images.unsplash.com/photo-1596727147705-61a532a659bd?w=500&q=80"
     },
     {
         pergunta: "Qual é o nome verdadeiro do herói conhecido como Gavião Arqueiro?",
         opcoes: ["Clint Barton", "Phil Coulson", "Bruce Banner", "Sam Wilson"],
-        correta: 0
+        correta: 0,
+        imagem: "https://images.unsplash.com/photo-1608889175123-8ec330b86f84?w=500&q=80"
     },
     {
         pergunta: "Em qual planeta Thanos encontra a Joia da Alma em 'Vingadores: Guerra Infinita'?",
         opcoes: ["Asgard", "Xandar", "Vormir", "Titan"],
-        correta: 2
+        correta: 2,
+        imagem: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80"
+    },
+    {
+        pergunta: "Quem é o diretor da S.H.I.E.L.D. que reúne os Vingadores pela primeira vez?",
+        opcoes: ["Nick Fury", "Phil Coulson", "Tony Stark", "Alexander Pierce"],
+        correta: 0,
+        imagem: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80"
+    },
+    {
+        pergunta: "Qual é o nome da inteligência artificial criada por Tony Stark que depois ganha um corpo físico?",
+        opcoes: ["J.A.R.V.I.S.", "F.R.I.D.A.Y.", "Ultron", "Visão"],
+        correta: 2,
+        imagem: "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=500&q=80"
+    },
+    {
+        pergunta: "Em 'Thor: Ragnarok', qual inteligência ou ser controla o planeta Sakaar?",
+        opcoes: ["Loki", "O Grão-Mestre", "Hela", "O Colecionador"],
+        correta: 1,
+        imagem: "https://images.unsplash.com/photo-1618005198143-e5283b019a72?w=500&q=80"
+    },
+    {
+        pergunta: "Qual é a música marcante que toca na abertura de 'Guardiões da Galáxia Vol. 1' enquanto Peter Quill dança?",
+        opcoes: ["Come and Get Your Love", "Hooked on a Feeling", "Mr. Blue Sky", "Cherry Bomb"],
+        correta: 1,
+        imagem: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&q=80"
+    },
+    {
+        pergunta: "Quem é o verdadeiro vilão por trás dos acontecimentos da série 'WandaVision'?",
+        opcoes: ["Agatha Harkness", "Mephisto", "Tyler Hayward", "Monica Rambeau"],
+        correta: 0,
+        imagem: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=500&q=80"
+    },
+    {
+        pergunta: "Qual Peter Parker é conhecido como 'Peter-Dois' no filme 'Homem-Aranha: Sem Volta Para Casa'?",
+        opcoes: ["Tom Holland", "Andrew Garfield", "Tobey Maguire", "Miles Morales"],
+        correta: 2,
+        imagem: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=500&q=80"
+    },
+    {
+        pergunta: "Antes de se tornar o Doutor Estranho, qual era a profissão de Stephen Strange?",
+        opcoes: ["Cientista Político", "Neurocirurgião", "Engenheiro Aeroespacial", "Físico Quântico"],
+        correta: 1,
+        imagem: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=500&q=80"
+    },
+    {
+        pergunta: "Qual é o nome da dimensão para onde o Homem-Formiga vai quando encolhe além do nível subatômico?",
+        opcoes: ["Reino Quântico", "Zona Negativa", "Dimensão Espelhada", "Microverso"],
+        correta: 0,
+        imagem: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=500&q=80"
+    },
+    {
+        pergunta: "Qual personagem se sacrifica para que os Vingadores consigam a Joia da Alma em 'Vingadores: Ultimato'?",
+        opcoes: ["Gamora", "Nebulosa", "Viúva Negra (Natasha)", "Homem de Ferro"],
+        correta: 2,
+        imagem: "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?w=500&q=80"
+    },
+    {
+        pergunta: "Quem é o irmão adotivo de Thor e o Deus da Trapaça?",
+        opcoes: ["Odin", "Loki", "Heimdall", "Malekith"],
+        correta: 1,
+        imagem: "https://images.unsplash.com/photo-1601987177651-8edfe6c20009?w=500&q=80"
+    },
+    {
+        pergunta: "Em 'Pantera Negra', qual é o nome do principal rival e primo de T'Challa que tenta assumir o trono?",
+        opcoes: ["M'Baku", "Erik Killmonger", "W'Kabi", "Zemo"],
+        correta: 1,
+        imagem: "https://images.unsplash.com/photo-1501472312651-726afe119ff1?w=500&q=80"
     }
 ];
 
 let perguntaAtual = 0;
 let pontuacao = 0;
 
+// Seleção dos elementos do HTML
 const elementoPergunta = document.getElementById('pergunta');
+const elementoImagem = document.getElementById('imagem-quiz');
 const containerRespostas = document.getElementById('opcoes-respostas');
 const btnProximo = document.getElementById('btn-proximo');
 const elementoResultado = document.getElementById('resultado');
@@ -129,7 +202,7 @@ function iniciarQuiz() {
     perguntaAtual = 0;
     pontuacao = 0;
     btnProximo.innerText = "Próxima Pergunta";
-    btnProximo.onclick = avançarPergunta; // Garante o clique correto ao reiniciar
+    btnProximo.onclick = avançarPergunta;
     mostrarPergunta();
 }
 
@@ -137,6 +210,14 @@ function mostrarPergunta() {
     resetarEstado();
     let questao = perguntasQuiz[perguntaAtual];
     elementoPergunta.innerText = questao.pergunta;
+
+    // Lógica para carregar e exibir a imagem da pergunta atual
+    if (questao.imagem) {
+        elementoImagem.src = questao.imagem;
+        elementoImagem.style.display = "block";
+    } else {
+        elementoImagem.style.display = "none";
+    }
 
     questao.opcoes.forEach((opcao, indice) => {
         const botao = document.createElement('button');
@@ -185,87 +266,16 @@ function avançarPergunta() {
     }
 }
 
-btnProximo.addEventListener('click', avançarPergunta);
-
 function mostrarResultado() {
     resetarEstado();
     elementoPergunta.innerText = "Quiz Concluído!";
-    elementoResultado.innerText = `Você acertou ${pontuacao} de ${perguntasQuiz.length} perguntas sobre a Marvel!`;
-    elementoResultado.classList.remove('escondido');
-    btnProximo.innerText = "Reiniciar Quiz";
-    btnProximo.classList.remove('escondido');
-    btnProximo.onclick = () => {
-        elementoResultado.classList.add('escondido');
-        iniciarQuiz();
-    };
-}
-
-// Inicializa o jogo ao carregar a página
-iniciarQuiz();
-{
-        pergunta: "Quem é o diretor da S.H.I.E.L.D. que reúne os Vingadores pela primeira vez?",
-        opcoes: ["Nick Fury", "Phil Coulson", "Tony Stark", "Alexander Pierce"],
-        correta: 0
-    },
-    {
-        pergunta: "Qual é o nome da inteligência artificial criada por Tony Stark que depois ganha um corpo físico?",
-        opcoes: ["J.A.R.V.I.S.", "F.R.I.D.A.Y.", "Ultron", "Visão"],
-        correta: 2
-    },
-    {
-        pergunta: "Em 'Thor: Ragnarok', qual inteligência ou ser controla o planeta Sakaar?",
-        opcoes: ["Loki", "O Grão-Mestre", "Hela", "O Colecionador"],
-        correta: 1
-    },
-    {
-        pergunta: "Qual é a música marcante que toca na abertura de 'Guardiões da Galáxia Vol. 1' enquanto Peter Quill dança?",
-        opcoes: ["Come and Get Your Love", "Hooked on a Feeling", "Mr. Blue Sky", "Cherry Bomb"],
-        correta: 1
-    },
-    {
-        pergunta: "Quem é o verdadeiro vilão por trás dos acontecimentos da série 'WandaVision'?",
-        opcoes: ["Agatha Harkness", "Mephisto", "Tyler Hayward", "Monica Rambeau"],
-        correta: 0
-    },
-    {
-        pergunta: "Qual Peter Parker é conhecido como 'Peter-Dois' no filme 'Homem-Aranha: Sem Volta Para Casa'?",
-        opcoes: ["Tom Holland", "Andrew Garfield", "Tobey Maguire", "Miles Morales"],
-        correta: 2
-    }
-    {
-        pergunta: "Antes de se tornar o Doutor Estranho, qual era a profissão de Stephen Strange?",
-        opcoes: ["Cientista Político", "Neurocirurgião", "Engenheiro Aeroespacial", "Físico Quântico"],
-        correta: 1
-    },
-    {
-        pergunta: "Qual é o nome da dimensão para onde o Homem-Formiga vai quando encolhe além do nível subatômico?",
-        opcoes: ["Reino Quântico", "Zona Negativa", "Dimensão Espelhada", "Microverso"],
-        correta: 0
-    },
-    {
-        pergunta: "Qual personagem se sacrifica para que os Vingadores consigam a Joia da Alma em 'Vingadores: Ultimato'?",
-        opcoes: ["Gamora", "Nebulosa", "Viúva Negra (Natasha)", "Homem de Ferro"],
-        correta: 2
-    },
-    {
-        pergunta: "Quem é o irmão adotivo de Thor e o Deus da Trapaça?",
-        opcoes: ["Odin", "Loki", "Heimdall", "Malekith"],
-        correta: 1
-    },
-    {
-        pergunta: "Em 'Pantera Negra', qual é o nome do principal rival e primo de T'Challa que tenta assumir o trono?",
-        opcoes: ["M'Baku", "Erik Killmonger", "W'Kabi", "Zemo"],
-        correta: 1
-    }
-    function mostrarResultado() {
-    resetarEstado();
-    elementoPergunta.innerText = "Quiz Concluído!";
+    elementoImagem.style.display = "none"; // Esconde a imagem na tela final
     
     // Calcula a porcentagem de acertos
     const porcentagemAcertos = (pontuacao / perguntasQuiz.length) * 100;
     let mensagemFinal = "";
 
-    // Condições para as mensagens personalizadas
+    // Telas finais com as mensagens personalizadas pedidas
     if (pontuacao === 0) {
         mensagemFinal = "Você errou todas as perguntas, você não é um verdadeiro fã do universo marvel.";
     } else if (porcentagemAcertos === 50) {
@@ -273,7 +283,6 @@ iniciarQuiz();
     } else if (pontuacao === perguntasQuiz.length) {
         mensagemFinal = "Meus parabéns, parece que temos um fã verdadeiro do universo marvel.";
     } else {
-        // Mensagem padrão caso o acerto seja diferente de 0%, 50% ou 100%
         mensagemFinal = `Você acertou ${pontuacao} de ${perguntasQuiz.length} perguntas!`;
     }
 
@@ -286,7 +295,11 @@ iniciarQuiz();
         elementoResultado.classList.add('escondido');
         iniciarQuiz();
     };
-}function mostrarResultado() {
+}
+
+// Inicializa o jogo ao carregar a página
+iniciarQuiz();
+function mostrarResultado() {
     resetarEstado();
     elementoPergunta.innerText = "Quiz Concluído!";
     
